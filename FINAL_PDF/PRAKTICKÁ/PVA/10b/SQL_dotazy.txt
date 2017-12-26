@@ -1,0 +1,402 @@
+01 Jednoduché dotazy s klauzulí WHERE
+
+    Zobraz jmeno, prijmeni a login všech osob, které žijí ve mìstì: Hradek
+	SELECT osoba_jmeno, osoba_prijmeni, osoba_login FROM Osoba WHERE osoba_mesto = 'Hradek';
+
+    Vypište jméno, pøíjmení a rodné èíslo všech osob, které mají pøíjmení: Nemecek
+	SELECT osoba_jmeno, osoba_prijmeni, osoba_rodneCislo FROM Osoba WHERE osoba_prijmeni = 'Nemecek';
+	
+    Vybere SPZ, znaèku a rok výroby všech aut kde rok výroby je nižší než 2007
+	SELECT auto_spz, auto_znacka, auto_rokVyroby FROM Auto WHERE auto_rokvyroby < 2007;
+
+    Zobrazte názvy všech filmù, které mají zemi pùvodu: Ceska Republika
+	SELECT film_nazev FROM Film WHERE film_zemePuvodu = 'Ceska Republika';
+
+    Zobrazte název a isbn všech knih od: Shakespeare William
+	SELECT kniha_nazev, kniha_isbn FROM `kniha` WHERE kniha_autor = 'Shakespeare William';
+
+    Zobrazte jméno, pøíjmení a login všech záznamù z tabulky osoba kde je pøijmení: Cermak
+	SELECT osoba_jmeno, osoba_prijmeni, osoba_login FROM Osoba WHERE osoba_prijmeni = 'Cermak';
+
+    Z tabulky kniha vypište název a isbn všech knih které napsal autor: Borovsky Karel Havlicek
+	SELECT kniha_nazev, kniha_isbn FROM `kniha` WHERE kniha_autor = 'Borovsky karel Havlicek';
+
+    Zobraz jmeno, prijmeni, login a mìsto všech osob, které žijí ve mìstì: Aš
+	SELECT osoba_jmeno, osoba_prijmeni, osoba_login, osoba_mesto FROM Osoba WHERE osoba_mesto = 'As'
+
+    Zobrazte název a isbn všech knih od: Zola Emil
+	SELECT kniha_nazev, kniha_isbn FROM `kniha` WHERE kniha_autor = 'Zola Emil';
+
+    Zobrazte název a isbn všech knih od: Jirasek Alois
+	SELECT kniha_nazev, kniha_isbn FROM `kniha` WHERE kniha_autor = 'Jirasek Alois';
+
+    Zobrazte název a isbn všech knih od: Steinbeck John
+	SELECT kniha_nazev, kniha_isbn FROM `kniha` WHERE kniha_autor = 'Steinbeck John';
+
+    Zobrazte název a isbn všech knih od: Poe Edgar Alan
+	SELECT kniha_nazev, kniha_isbn FROM `kniha` WHERE kniha_autor = 'Poe Edgar Alan';
+
+    Zobrazte název a isbn všech knih od: Hemingway Ernest
+	SELECT kniha_nazev, kniha_isbn FROM `kniha` WHERE kniha_autor = 'Hemingway Ernest';
+
+
+
+02 Složitìjší dotazy s klauzulí WHERE
+
+    Zobrazte jméno, pøíjmení a datum narození všech žen, které jsou narozeny mezi 01.01.2000 a 24.3.2014
+	SELECT osoba_jmeno, osoba_prijmeni, osoba_datumNarozeni FROM Osoba WHERE osoba_datumNarozeni BETWEEN "2000-02-02" AND "2014-03-24" AND osoba_pohlavi = 'Zena';
+
+    Zobrazte pøíjmení, jméno a datum narození všech osob které mají email centrum.cz a jsou narozeny døíve než 01.01.2000, výsledek seøaïte vzestupne podle pøijmení
+	SELECT osoba_prijmeni, osoba_jmeno, osoba_datumNarozeni FROM `Osoba` WHERE osoba_email LIKE '%centrum.cz' AND osoba_datumNarozeni < '2000-01-01' GROUP BY osoba_prijmeni;
+
+    Zobrazte název a rok vydání všech filmù, které jsou na DVD a vyšly roku 2012
+	SELECT film_nazev, film_rokVydani FROM Film WHERE film_rokVydani LIKE '2012';
+
+    Zobrazte jméno, pøíjmení, login a email všech žen, které mají email na gmail.com
+	SELECT osoba_jmeno, osoba_prijmeni, osoba_login, osoba_email FROM Osoba WHERE osoba_email LIKE '%gmail.com'
+
+    Zobrazte SPZ, znaèku a rok vyroby všech aut, která mají znaèku: Audi, nebo mají rok výroby v rozmezí 2005 až 2007
+	SELECT auto_spz, auto_rokVyroby FROM Auto WHERE auto_znacka = 'Audi' OR auto_rokVyroby BETWEEN '2005' AND '2007';
+
+    Z tabulky osoba vypište jméno, pøijmení a login všech osob které mají email na seznam.cz a souèasnì rok narození mezi 1.1.1990 a 31.12.2014
+	SELECT osoba_prijmeni, osoba_jmeno, osoba_login FROM `Osoba` WHERE osoba_email LIKE '%seznam.cz' AND osoba_datumNarozeni BETWEEN "1990-01-01" AND "2014-12-31";
+
+    Zobrazte všechny sloupce z tabulky auta, které mají znaèku Škoda a rok výroby 2010 a nižší.
+	SELECT * FROM Auto WHERE auto_rokVyroby < 2010 AND auto_znacka = 'Skoda'
+
+    Zobrazte název filmu, který pochází ze Spojeného království a byl natoèen roku 2014.
+	SELECT film_nazev FROM Film WHERE film_zemePuvodu = 'Spojene Kralovstvi' AND film_rokVydani = '2014';
+
+    Zobrazte všechny sloupce z tabulky auta, které mají znaèku znaèky Jeep, nebo Volvo.
+	SELECT * FROM Auto WHERE auto_znacka = 'Jeep' OR auto_znacka = 'Volvo';
+
+    Zobrazte všechny sloupce z tabulky knihy, které napsal Karel Èapek, nebo Alois Jirásek.
+	SELECT * FROM Kniha WHERE kniha_autor = 'Capek Karel' OR kniha_autor = 'Jirasek Alois';
+
+    Zobrazte všechny sloupce z tabulky osoba, kteøí jsou muži a souèasnì kteøí se ještì nenarodili.
+	SELECT * FROM Osoba WHERE osoba_pohlavi = 'muz' AND osoba_datumNarozeni > '2016-01-16';
+
+
+
+
+03 Dotazy s negací
+
+    Zobrazte název, režiséra a rok vydání u všech filmù, které nerežíroval Karel Zeman
+	SELECT film_nazev, film_rezie, film_rokVydani FROM Film WHERE NOT(film_rezie = 'Karel Zeman');
+
+    Zobrazte spz a znaèku všech aut, které nemají znaèku: Ford, a Skoda
+	SELECT auto_spz, auto_znacka FROM Auto WHERE NOT(auto_znacka = 'Ford' OR auto_znacka = 'Skoda');
+	
+    Vypište název, autora a isbn všech knih, které nenapsal autor: Bezruc Petr
+	SELECT kniha_nazev, kniha_autor, kniha_isbn FROM Kniha WHERE NOT(kniha_autor = 'Bezruc Petr');
+
+    Vypište jméno, pøíjmení a mìsto všech osob, které nebydlí ve mìstì: Vysoky Ujezd
+	SELECT osoba_jmeno, osoba_prijmeni, osoba_mesto FROM Osoba WHERE NOT(osoba_mesto = 'Vysoky Ujezd');
+
+    Zobrazte název, režizéra a médium všech filmù, které nejsou na médiu: DVD, a CD.
+	SELECT film_nazev, film_rezie, film_medium FROM `Film` WHERE NOT(film_medium = 'DVD' OR film_medium = 'CD');
+
+    Zobrazte název a isbn a autora všech knih, které nejsou od: Zola Emil
+	SELECT kniha_nazev, kniha_isbn FROM Kniha WHERE NOT(kniha_autor = 'Zola Emil');
+
+    Zobrazte název a isbn a autora všech knih, které nejsou od: Jirasek Alois
+	SELECT kniha_nazev, kniha_isbn FROM Kniha WHERE NOT(kniha_autor = 'Jirasek Alois');	
+
+    Zobrazte název a isbn a autora všech knih, které nejsou od: Steinbeck John
+	SELECT kniha_nazev, kniha_isbn FROM Kniha WHERE NOT(kniha_autor = 'Steinbeck John');
+
+    Zobrazte název a isbn a autora všech knih, které nejsou od: Poe Edgar Alan
+	SELECT kniha_nazev, kniha_isbn FROM Kniha WHERE NOT(kniha_autor = 'Poe Edgar Alan');
+
+    Zobrazte název a isbn a autor všech knih, které nejsou od: Hemingway Ernest
+	SELECT kniha_nazev, kniha_isbn FROM Kniha WHERE NOT(kniha_autor = 'Hemingway Ernest');
+
+    Zobrazte všechny sloupce z tabulky auta, které nemají znaèku znaèky Jeep a Volvo
+	SELECT * FROM Auto WHERE NOT(auto_znacka = 'Jeep' OR auto_znacka = 'Volvo');
+
+    Zobrazte všechny sloupce z tabulky knihy, které nenapsal Karel Èapek, ani Alois Jirásek
+	SELECT * FROM Kniha WHERE NOT(kniha_autor = "Capek Karel" OR kniha_autor = "Jirasek Alois");
+
+    Zobrazte SPZ, znaèku a rok výroby všech aut, která nebyla vyrobena mezi roky 2006 a 2008
+	SELECT auto_spz, auto_znacka, auto_rokVyroby FROM Auto WHERE NOT(auto_rokVyroby BETWEEN "2006" AND "2008");
+
+    Vyberte znaèku auta a rok výroby všech auta která nemají rok výroby roky mezi 2008 a 2010.
+	SELECT auto_znacka, auto_rokVyroby FROM Auto WHERE NOT(auto_rokVyroby BETWEEN "2008" AND "2010");
+
+    Zobrazte všechny všechny údaje o autech, ktere nemají znacku Seat.
+	SELECT * FROM `Auto` WHERE NOT(auto_znacka = 'Seat');
+
+    Zobrazí jména a pøijmení všech osob, které nejsou muž.
+	SELECT osoba_jmeno, osoba_prijmeni FROM Osoba WHERE NOT(osoba_pohlavi = 'Muz');
+
+    Zobrazte název filmu a jeho režiséra a typ nosièe, který není uložen na optickém disku HD DVD.
+	SELECT film_nazev, film_rezie, film_medium FROM Film WHERE NOT(film_medium = 'HD DVD');
+
+
+
+
+
+
+04 Dotazy s klauzulí BETWEEN ... AND
+
+    Zobrazte SPZ, znaèku a rok výroby všech aut v DB, která byla vyrobena mezi roky 2006 a 2008
+	SELECT auto_spz, auto_znacka, auto_rokVyroby FROM Auto WHERE auto_rokVyroby BETWEEN "2006" AND "2008";
+
+    Vyberte znaèku auta a rok výroby všech auta která mají rok výroby je mezi 2008 a 2010
+	SELECT auto_znacka, auto_rokVyroby FROM Auto WHERE auto_rokVyroby BETWEEN "2008" AND "2010";
+
+    Zobraz název a studio u všech filmù které jsou vydány mezi roky 2011-2014
+	SELECT film_nazev, film_studio FROM Film WHERE film_rokVydani BETWEEN "2011" AND "2014";
+
+    Zobrazte jméno, pøíjmení, login a datum narození všech osob, které se narodily v rozmezí 1.1.1998 až 31.12.1998
+	SELECT osoba_jmeno, osoba_prijmeni, osoba_login, osoba_datumNarozeni FROM Osoba WHERE osoba_datumNarozeni BETWEEN "1998-01-01" AND "1998-12-31";
+
+    Zobrazte jméno, pøíjmení, email a psè všech osob jejichž psè je v rozmezí: 25000 až 25999
+	SELECT osoba_jmeno, osoba_prijmeni, osoba_email, osoba_psc FROM `Osoba` WHERE osoba_psc BETWEEN "25000" AND "25999";
+
+    Zobrazte jméno, pøíjmení a datum narození všech osob, které se narodily v rozmezí 1.1.2000 až 31.12.2010
+	SELECT osoba_jmeno, osoba_prijmeni, osoba_datumNarozeni FROM `Osoba` WHERE osoba_datumNarozeni BETWEEN "2000-01-01" AND "2010-12-31";
+
+
+
+
+
+05 Dotazy s klauzulí LIKE
+
+    Zobrazte jméno a pøijemní všech osob, jejichž pøijmení zaèíná na písmeno C
+	SELECT osoba_jmeno, osoba_prijmeni FROM `Osoba` WHERE osoba_prijmeni LIKE 'C%';
+
+    Zobrazte název a autora knihy s názvem konèícím na písmeno k
+	SELECT kniha_nazev, kniha_autor FROM Kniha WHERE kniha_nazev LIKE '%k';
+
+    Zobrazte názvy všech filmù které zaèínají písmenem A
+	SELECT film_nazev FROM Film WHERE film_nazev LIKE 'A%';
+
+    Vyberte název a autora knihy kde autor se jmenuje Karel
+	SELECT kniha_nazev, kniha_autor FROM Kniha WHERE kniha_autor LIKE '%Karel%';
+
+    Zobrazte jméno, pøíjmení a email osoby který má email na seznam.cz
+	SELECT osoba_jmeno, osoba_prijmeni, osoba_email FROM Osoba WHERE osoba_email LIKE '%seznam.cz';
+
+    Zobrazte bez opakování názvy všech filmù které zaèínají písmenem B
+	SELECT DISTINCT film_nazev FROM `film` WHERE film_nazev LIKE 'B%';
+
+    Zobrazte jméno, pøíjmení a email osoby který má email na centrum.cz
+	SELECT osoba_jmeno, osoba_prijmeni, osoba_email FROM Osoba WHERE osoba_email LIKE '%centrum.cz';
+
+    Zobrazte jméno, pøíjmení osob, kterým konèí pøijmení na: ova
+	SELECT osoba_jmeno, osoba_prijmeni FROM `Osoba` WHERE osoba_prijmeni LIKE '%ova';
+
+
+
+06 Dotazy s agregaèními funkcemi
+
+    Zobrazte kolik knih v DB je od autora: "Shakespeare William"
+	SELECT COUNT(*) FROM Kniha WHERE kniha_autor = "Shakespeare William";
+
+    Zobrazte kolik lidí ma vypùjèenu nìjakou knihu s id > 100.
+	SELECT COUNT(*) FROM ma_vypujcenu WHERE maVypujcenu_kniha_id > 100
+
+    Zobrazte kolik filmù je na médiu: DVD
+	SELECT COUNT(*) FROM `Film` WHERE film_medium = 'DVD';
+
+    Zobrazte kolik lidí má vypùjèenu knihu s id 14.
+	SELECT COUNT(*) FROM `ma_vypujcenu` WHERE maVypujcenu_kniha_ID = 14;
+
+    Zobrazte kolik aut má znaèku: Ford
+	SELECT COUNT(*) FROM auto WHERE auto_znacka = 'Ford';
+
+    Zobrazte kolik aut je v tabulce auto.
+	SELECT COUNT(*) FROM Auto;
+
+    Zobrazte, jaký je prùmìrný rok výroby aut v tabulce auto.
+	SELECT AVG(auto_rokVyroby) FROM Auto;
+
+    Zobrazte, kolikrát se vyskytuje pøíjmení Petru v tabulce osoba.
+	SELECT COUNT(*) FROM Osoba WHERE osoba_prijmeni LIKE '%Petru';
+
+    Zobrazte kolik aut má znaèku: Skoda
+	SELECT COUNT(*) FROM Auto WHERE auto_znacka = 'Skoda';
+
+    Zobrazte, kolik filmù je od studia Universal Studios.
+	SELECT COUNT(*) FROM Film WHERE film_studio = 'Universal Studios';
+
+    Zobrazte, z jakého roku je nejstarší film.
+	SELECT MIN(film_rokVydani) FROM Film;
+
+    Zobrazte kolik filmù je na médiu: CD	
+	SELECT COUNT(*) FROM `Film` WHERE film_medium = 'CD';
+
+    Zobrazte kolik filmù bylo vydáno mezi roky 2011 až 2014.
+	SELECT COUNT(*) FROM Film WHERE film_rokVydani BETWEEN "2011" AND "2014";
+
+    Zobraz nejvyšší PSC z tabulky osob.
+	SELECT MAX(osoba_psc) FROM Osoba;
+
+
+
+
+07 Spojování tabulek
+
+    Zobrazte jméno a pøijmení všech osob, které øídí auto znaèky Skoda
+	SELECT osoba_jmeno, osoba_prijmeni FROM (osoba JOIN je_ridicem ON osoba.osoba_id = je_ridicem.jeRidicem_osoba_id) JOIN Auto ON je_ridicem.jeRidicem_auto_id = Auto.auto_id WHERE Auto.auto_znacka = 'Skoda';
+
+    Zobrazte jména a pøíjmení všech osob, které vidìly film "Jak ukrast nevestu"
+	SELECT osoba_jmeno, osoba_prijmeni FROM (osoba JOIN videl ON osoba.osoba_id = videl.videl_osoba_id) JOIN Film ON videl.videl_film_id = Film.film_id WHERE Film.film_nazev = 'Jak ukrast nevestu';
+
+    Zobrazte název filmu, jméno a pøijmení osob které film vidìly a jejich názor ten film, výsledek seøaïte podle názvu filmu sestupnì
+	SELECT film_nazev, osoba_jmeno, osoba_prijmeni FROM (osoba JOIN videl ON osoba.osoba_id = videl.videl_osoba_id) JOIN Film ON videl.videl_film_id = Film.film_id ORDER BY Film.film_nazev DESC;
+
+    Zobrazte jméno a pøíjmení všech osob, které mají vypùjèenu nìjakou knihu, kterou napsal: May Karel
+	SELECT osoba_jmeno, osoba_prijmeni FROM (osoba JOIN ma_vypujcenu ON osoba.osoba_id = ma_vypujcenu.maVypujcenu_osoba_id ) JOIN Kniha ON ma_vypujcenu.maVypujcenu_kniha_id = Kniha.kniha_id WHERE kniha_autor = 'May Karel';
+
+    Zobrazte název, zemi pùvodu a názor všech filmù, které nìkdo vidìl a souèasnì mají zemi pùvodu: Ceska republika
+	SELECT film_nazev, osoba_jmeno, osoba_prijmeni FROM (osoba JOIN videl ON osoba.osoba_id = videl.videl_osoba_id) JOIN Film ON videl.videl_film_id = Film.film_id WHERE film_zemePuvodu = 'Ceska republika';
+
+
+
+
+
+08 Vkládání dat
+
+    Do tabulky Auto vložte nový záznam:
+        auto_id: NULL (Auto-increment)
+        auto_spz: 0A0 12-34
+        auto_znacka: Skoda
+        auto_rokVyroby: 2013
+
+		INSERT INTO auto (auto_id, auto_spz, auto_znacka, auto_rokVyroby) VALUES (NULL, '0A0 12-34', 'Skoda', '2013');
+
+    Do tabulky Kniha vložte nový záznam:
+        kniha_id: NULL (Auto-increment)
+        kniha_nazev: Programovaci jazyk C
+        kniha_autor: K & R
+        kniha_isbn: ISBN 111-22-3333-444-5
+
+		INSERT INTO kniha (kniha_id, kniha_nazev, kniha_autor, kniha_isbn) VALUES (NULL, 'Programovaci jazyk C', 'K & R', 'ISBN 111-22-3333-444-5');
+
+    Vložte do tabulky Film nový záznam:
+        film_id: NULL (Auto-increment)
+        film_nazev: Postradatelní
+        film_rezie: Sylvester Stallone
+        film_medium: BD
+        film_studio: 20th Century Fox
+        film_zemePuvodu: USA
+        film_rokVydani: 2010
+
+		INSERT INTO film (film_id, film_nazev, film_rezie, film_medium, film_studio, film_zemePuvodu, film_rokVydani) VALUES (NULL, 'Postradatelni', 'Sylvester Stallone', 'BD', '20th Century Fox', 'USA', 2010);
+
+    Do tabulky Auto vložte nový záznam:
+        auto_id: NULL (Auto-increment)
+        auto_spz: 5X5 99-88
+        auto_znacka: Opel
+        auto_rokVyroby: 2010
+
+		INSERT INTO auto (auto_id, auto_spz, auto_znacka, auto_rokVyroby) VALUES (NULL, '5X5 99-88', 'Opel', '2010');
+
+    Do tabulky Kniha vložte nový záznam:
+        kniha_id: NULL (Auto-increment)
+        kniha_nazev: The Texbook
+        kniha_autor: Donald E. Knuth
+        kniha_isbn: ISBN 222-11-5555-666-9
+
+		INSERT INTO kniha (kniha_id, kniha_nazev, kniha_autor, kniha_isbn) VALUES (NULL, 'The Texbook', 'Donald E. Knuth', 'ISBN 222-11-5555-666-9');
+
+
+    Do tabulky Auto vložte nový záznam:
+        auto_id: NULL (Auto-increment)
+        auto_spz: 3J2 15-99
+        auto_znacka: BMW
+        auto_rokVyroby: 2012
+
+		INSERT INTO auto (auto_id, auto_spz, auto_znacka, auto_rokVyroby) VALUES (NULL, '3J2 15-99', 'BMW', '2012');
+
+    Do tabulky Kniha vložte nový záznam:
+        kniha_id: NULL (Auto-increment)
+        kniha_nazev: Robinson Crusoe
+        kniha_autor: Daniel Defoe
+        kniha_isbn: ISBN 978-15-9845-302-6
+
+		INSERT INTO kniha (kniha_id, kniha_nazev, kniha_autor, kniha_isbn) VALUES (NULL, 'Robinson Crusoe', 'Daniel Defoe', 'ISBN 978-15-9845-302-6');
+
+
+    Vložte do tabulky Film nový záznam:
+        film_id: NULL (Auto-increment)
+        film_nazev: Batman
+        film_rezie: Tim Burton
+        film_medium: DVD
+        film_studio: Warner Bros
+        film_zemePuvodu: USA
+        film_rokVydani: 1989
+
+
+		INSERT INTO film (film_id, film_nazev, film_rezie, film_medium, film_studio, film_zemePuvodu, film_rokVydani) VALUES (NULL, 'Batman', 'Tim Burton', 'DVD', 'Warner Bros', 'USA', 1989);
+
+
+
+
+09 Mazání dat
+
+    Z tabulky Auto smažte záznam jehož SPZ je: 0B1 32-25
+	DELETE FROM auto WHERE auto_spz = '0B1 32-35';
+
+    Z tabulky Auto smažte všechny záznamy, které mají znaèku: Peugeot
+	DELETE FROM auto WHERE auto_znacka = 'Peugeot';
+
+    Z tabulky Film smažte všechny záznamy, které mají jako médium: CD a souèasnì mají rok vydání = 2011
+	DELETE FROM film WHERE film_medium = 'CD' AND film_rokVydani = '2011'
+
+    Z tabulky knih smažte všechny knihy, jejichž autorem je: Olbracht Ivan
+	DELETE FROM kniha WHERE kniha_autor = 'Olbracht Ivan';
+
+    Z tabulky osob smažte všechny osoby, které mají jméno: Aladin a nebo žijí ve mìstì: Bilov
+	DELETE FROM osoba WHERE osoba_jmeno = 'Aladin' OR osoba_mesto = 'Bilov';
+
+    Z tabulky auto smažte všechny záznamy kde SPZ zaèíná 0 (nulou)
+	DELETE FROM auto WHERE auto_spz LIKE '0%';
+
+
+
+
+
+
+
+10 Úprava dat
+
+    Všem osobam ktere se jmenuji: Abel zmìòte pohlavi na 'Zena'
+	UPDATE osoba SET osoba_pohlavi = 'Zena' WHERE osoba_jmeno = 'Abel'
+
+    Všem osobam, které mají pøíjmení: Baloun a souèasnì žijí ve mìstì: Kojcice zmìòte login na: BAKO1
+	UPDATE osoba SET osoba_login = 'BAKO1' WHERE osoba_prijmeni = 'Baloun' AND osoba_mesto ='Kojcice';
+
+    Všem autùm které mají rok výroby v rozmezí od 2010 do 2012 zvyš rok výroby o 5 let.
+	UPDATE auto SET auto_rokVyroby = auto_rokVyroby + 5 WHERE auto_rokVyroby BETWEEN "2010" AND "2012";
+
+    Všem filmùm, které mají zemi pùvodu: Afghanistan zmìòte médium na: HD DVD
+	UPDATE film SET film_medium = 'HD DVD' WHERE film_zemePuvodu = 'Afghanistan';
+
+    Všem filmùm které režíroval: Antonin Moskalyk, nebo mají filmové studio: 20th Century Fox zmìòte rok vydání na: 2000.
+	UPDATE film SET film_rokVydani = 2000 WHERE film_rezie = 'Antonin Moskalyk' OR film_studio = '20th Century Fox';
+
+    V tabulce film zmìòte u všech záznamù kde je studio: Paramount Pictures médium na: DVD.
+	UPDATE film SET film_medium = 'DVD' WHERE film_studio = 'Paramount Pictures';
+
+    V tabulce osoba zmeòte pohlaví na: Žena u všech záznamù kde jméno zaèíná na písmeno: K
+	UPDATE osoba SET osoba_pohlavi = 'Zena' WHERE osoba_jmeno LIKE 'K%';
+
+    Všem autùm, které mají rok výroby 2007, zmeòte rok výroby na 2009.
+	UPDATE auto SET auto_rokVyroby = '2007' WHERE auto_rokVyroby = '2009';
+
+    V tabulce osoba zmeòte pohlaví na muž u všech záznamù, kde mìsto zaèíná na písmeno A.
+	UPDATE osoba SET osoba_pohlavi = 'Muz' WHERE osoba_mesto LIKE 'A%';
+
+    V tabulce kniha, kde autor je Poe Edgar Alan, zmìòte autora na Capek Karel.
+	UPDATE kniha SET kniha_autor = 'Capek Karel' WHERE kniha_autor = 'Poe Edgar Alan';
+
+    V tabulce osoba zmeòte mìsto na Pocatky u všech záznamù, které mají email u seznamu.
+	UPDATE osoba SET osoba_mesto = 'Pocatky' WHERE osoba_email LIKE '%seznam.cz';
+
+    V tabulce film zmìòte rok vydání na 2000 u všech záznamù, které mají zemi pùvodu Ceska republika.
+	UPDATE film SET film_rokVydani = '2000' WHERE film_zemePuvodu = 'Ceska republika';
+
+
