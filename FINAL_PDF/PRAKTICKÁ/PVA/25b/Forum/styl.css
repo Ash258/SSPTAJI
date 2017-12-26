@@ -1,0 +1,31 @@
+#wrap_head {
+	width : 100%;
+	float : left;
+}
+
+#head, #body, #login {
+	border  : 1px solid black;
+	padding : 3px;
+}
+
+#wrap_body {
+	width : 75%;
+	float : left;
+}
+
+#body {
+	border-style : none solid solid solid;
+}
+
+#wrap_login {
+	width : 25%;
+	float : left;
+}
+
+#login {
+	border-style : none solid solid none;
+}
+
+.error {
+	color : red;
+}
