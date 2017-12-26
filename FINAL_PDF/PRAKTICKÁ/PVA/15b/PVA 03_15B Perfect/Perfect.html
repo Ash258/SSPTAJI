@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Perfect</title>
+</head>
+
+<body>
+	<h1> Výpočet abundantních, perfektních a deficientních cisel </h1>
+	<form action="Vyhodnot.php" method="POST">
+		<fieldset>
+			<legend>Zadání parametru</legend>
+			Horní mez:
+			<br />
+			<input type="number" name="mez" />
+			<br /> Abundantní čísla:
+			<input type="checkbox" name="cisloo[]" value="abundant" />
+			<br /> Perfektní čísla:
+			<input type="checkbox" name="cisloo[]" value="perfect" />
+			<br /> Deficientní čísla:
+			<input type="checkbox" name="cisloo[]" value="deficient" />
+			<br />
+			<input type="submit" name="submit" value="Vypočítej" />
+		</fieldset>
+	</form>
+</body>
+
+</html>
