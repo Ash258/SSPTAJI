@@ -1,0 +1,20 @@
+1.  Míchání barev na 3 posuvnících v modulu RGB, mìní se barva tìla formuláøe.
+2.  Zjišování jestli je èíslo sudé nebo liché, kadné nebo záporné, prvoèíslo, dìlitelné zadanım èíslem a cifernı souèet èísla.
+3.  Na posuvníku navolíme 0-10 a spustíme jedním ze 4 cyklù.
+4.  Poèítá cenu z poètu kusù, ceny za kus a DPH.
+5.  Ze 3 zadanıch koøenù, spoèítá kvadratickou rovnici.
+6.  10 prvkové pole, uivatel vyplní hodnoty a program je následnì seøadí.
+7.  Vytvoøí tabulku, v pøípadì e ji existuje nám nabídne jestli ji chceme pøepsat.
+8.  Na sebe navazující tlaèítka.
+9.  Otevøení formuláøe, zavøení formuláøe, zavøení databáze.
+10. Vıpoèet povrch a objem kvádru, krychle, koule.
+11. Vypoète roky,tıdny a dny, diskriminant, prùmìr ze zadanıch.
+12. Matice, uivatel zadá poèet øádkù a sloupcù a ruènì zadá hodnoty.
+13. Vytvoøení dvou matic, náhodnì generované, sèítání, násobení, dìlení.
+14. Pøevede zadané jednotky èasu na jiné zadané.
+15. Kalkulaèka
+16. 
+17. Poèet znakù ve vìtì a èetnost znaku.
+18. Pøevod mìn.
+19. Poèítání komplexních èísel.
+20. Hledání maxima z 10 zadanıch èísel.
