@@ -1,0 +1,4 @@
+*.docx     binary
+*.dotm     binary
+*.dotx     binary
+*.sh      text eol=lf
